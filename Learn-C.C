@@ -29,7 +29,7 @@ a percentage(%) symbol and follows a special character to identify the type of t
 
 
 
-/////hello world/////
+/////HELLO WORLD/////
 #include <stdio.h>
 //the int keyword indicates that the function (main) will return an integer - if integer = 0, program was successful, any other number = fail
 int main() {
@@ -38,7 +38,7 @@ int main() {
 }
 
 
-/////defining boolean/////
+/////DEFINING BOOLEAN/////
 #define BOOL char 
 #define FALSE 0
 #define TRUE 1
@@ -56,7 +56,7 @@ int main(){
 }
 
 
-/////Defining variables/////
+/////DEFINING VARIABLES/////
 int foo;
 int bar = 1;
 
