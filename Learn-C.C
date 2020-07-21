@@ -7,7 +7,7 @@ https://www.learn-c.org/
 /////FUNCTIONS/////
 >printf() = prints to the screen
 >printf("\n"); = prints a new line
->sprintf() = rather than print to console, store output on char buffer  specified in sprintf 
+>sprintf() = rather than print to console, store output on char buffer specified in sprintf 
 >strlen() = returns the length of a string
 >strncmp() = compares two strings 
 >strncat() = String Concatenation 
@@ -361,6 +361,117 @@ int main() {
   printf("%s\n",name);
   return 0;
 }
+
+
+/////FOR LOOPS/////
+A code block that runs multiple times. Require an iterator value - usually = i. Iterator can run through a
+range of elements. e.g. The most obvious form of iterator is a pointer: A pointer can point to elements in 
+an array, and can iterate through them using the increment operator (++).
+
+For loops give the following functionality:
+
+>Initialize the iterator variable using an initial value
+>Check if the iterator has reached its final value
+>Increases the iterator
+
+//Iterate on a block ten times - it will print 0-9 to the console:
+int i;
+for (i = 0; i < 10; i++) {
+    printf("%d\n", i);
+}
+
+//Sum all the values of an array:
+int array[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+int sum = 0;
+int i;
+
+for (i = 0; i < 10; i++) {
+    sum += array[i];
+}
+
+/* sum now contains a[0] + a[1] + ... + a[9] */
+printf("Sum of the array is %d\n", sum);
+
+//Calculate multiplication of all items in an array:
+
+
+/////WHILE LOOPS/////
+A while loop continues executing the while block as long as the condition in the while remains true.
+
+//Execute a while loop ten times:
+int n = 0;
+while (n < 10) {
+    n++;
+}
+-note: beware of infinite loops if a condition is given which always evaluates as true (non-zero):
+
+//Loop directives:
+Loop directives are used in conjunction with all loop types in C:
+>break
+>continue 
+
+//break:
+When a break statement is encountered inside a loop, the loop is immediately terminated, even if the while loop never finishes.
+
+e.g.
+int n = 0;
+while (1) {
+    n++;
+    if (n == 10) {
+        break;
+    }
+}
+
+//continue:
+Instead of forcing termination, it forces the next iteration of the loop to take place, skipping any code in between.
+For the for loop, continue statement causes the conditional test and increment portions of the loop to execute. 
+For the while and do...while loops, continue statement causes the program control to pass to the conditional tests.
+
+e.g. the continue directive causes the printf command to be skipped, so that only even numbers are printed out:
+int n = 0;
+while (n < 10) {
+    n++;
+
+    /* check that n is odd */
+    if (n % 2 == 1) {
+        /* go back to the start of the while block */
+        continue;
+    }
+
+    /* we reach this code only if n is even */
+    printf("The number %d is even.\n", n);
+}
+
+//code example:
+If the current number which is about to printed is less than 5, don't print it.
+If the current number which is about to printed is greater than 10, don't print it and stop the loop.
+
+#include <stdio.h>
+
+int main() {
+    int array[] = {1, 7, 4, 5, 9, 3, 5, 11, 6, 3, 4};
+    int i = 0;
+
+    while (i < 10) {
+        if(array[i] < 5){
+            //increment so you go to the next element in the array and avoid an infinite loop. 
+            i++;
+            continue;
+        }
+
+        if(array[i] > 10){
+            break;
+        }
+
+        printf("%d\n", array[i]);
+        i++;
+    }
+
+    return 0;
+}
+
+
+
 
 
 
