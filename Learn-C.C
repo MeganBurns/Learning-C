@@ -1,5 +1,18 @@
 https://www.learn-c.org/
 
+CONTENTS:
+1. Hello, World!
+2. Variables and Types
+3. Arrays
+4. Multidimensional Arrays
+5. Conditions
+6. Strings
+7. For loops
+8. While loops
+9. Functions
+10. Static keyword
+
+
 /////GUIDE/////
 >return statement e.g. return 0; - ends the execution of a function, and returns control to the calling function. (https://docs.microsoft.com/en-us/cpp/c-language/return-statement-c?view=vs-2019)
 >"\0" = a value of zero - e.g. the final value in an array of strings
