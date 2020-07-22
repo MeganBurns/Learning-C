@@ -6,11 +6,12 @@ https://www.learn-c.org/
 
 /////FUNCTIONS/////
 >printf() = prints to the screen
->printf("\n"); = prints a new line
+>printf("\n"); = prints next printf to a new line
 >sprintf() = rather than print to console, store output on char buffer specified in sprintf 
 >strlen() = returns the length of a string
 >strncmp() = compares two strings 
 >strncat() = String Concatenation 
+>memcpy() = copy one memory location to another location
 
 
 
@@ -471,13 +472,252 @@ int main() {
 }
 
 
+/////FUNCTIONS/////
+A function is a set of statements that take inputs, do some specific computation and produces output.
+Functions have two (for lack of a better word) functions:
+1. Functions receive either a fixed or variable amount of arguments.
+2. Functions can only return one value, or return no value.
+
+Every C program has a function called main() that is called by operating system when a user runs the program.
+Functions can return any type except arrays and functions (Can get around this by returning pointer to array or pointer to function).
 
 
+//Declaring a function:
+e.g.
+
+return_type function_name (parameter/argument) list){
+    
+    body of the function
+    return 0;
+}
+
+RETURN_TYPE: Is the data type of the value the function returns. Some functions perform the desired operations without returning a value.
+In this case, the return_type is the keyword void.
+
+FUNCTION_NAME: This is the actual name of the function. The function name and the parameter list together constitute the function signature.
+
+PARAMETER/ARGUMENT: Parameter is like a placeholder. When a function is invoked, you pass a value to the parameter. This value is referred 
+to as actual parameter or argument. The parameter list refers to the type, order, and number of the parameters of a function. Parameters are 
+optional; that is, a function may contain no parameters.
+
+FUNCTION BODY: Contains a collection of statements that define what the function does. Including a return statement.
+
+e.g.
+/* function returning the max between two numbers */
+int max(int num1, int num2) {
+
+   /* local variable declaration */
+   int result;
+ 
+   if (num1 > num2)
+      result = num1;
+   else
+      result = num2;
+ 
+   return result; 
+}
+
+//Calling functions:
+e.g.
+
+/* function declaration */
+int foo(int bar);
+
+int main() {
+    /* calling foo from main */
+    printf("The value of foo is %d", foo(1));
+}
+
+int foo(int bar) {
+    return bar + 1;
+}
+
+//function that doesn't return a value:
+Empty parameter list in C mean that the parameter list is not specified and function can be called with any parameters. 
+In C, it is not a good idea to declare a function like fun(). To declare a function that can only be called without any parameter, 
+we should use “void fun(void)”.
+e.g.
+void moo(void) {
+    /* do something and don't return a value */
+}
+
+int main() {
+    moo();
+    //return; not required but can be included
+    return;
+}
 
 
+//Function Arguments:
+If a function is to use arguments, it must declare variables that accept the values of the arguments. These variables are called the formal 
+parameters of the function.
+Formal parameters behave like other local variables inside the function and are created upon entry into the function and destroyed upon exit.
+
+While calling a function, there are two ways in which arguments can be passed to a function −
+
+1. Call by value
+This method copies the actual value of an argument into the formal parameter of the function. In this case, changes made to the parameter 
+inside the function have no effect on the argument.
+
+2. Call by reference
+This method copies the address of an argument into the formal parameter. Inside the function, the address is used to access the actual 
+argument used in the call. This means that changes made to the parameter affect the argument.
+
+By default, C uses call by value to pass arguments. In general, it means the code within a function cannot alter the arguments used to call 
+the function.
+
+In the below example, 10 and 20 are actual parameters. x and y are formal parameters. 
+
+#include <stdio.h> 
+  
+// An example function that takes two parameters 'x' and 'y' 
+// as input and returns max of two input numbers 
+int max(int x, int y) 
+{ 
+    if (x > y) 
+      return x; 
+    else
+      return y; 
+} 
+  
+// main function that doesn't receive any parameter and 
+// returns integer. 
+int main(void) 
+{ 
+    int a = 10, b = 20; 
+  
+    // Calling above function to find max of 'a' and 'b' 
+    int m = max(a, b); 
+  
+    printf("m is %d", m); 
+    return 0; 
+} 
+
+//functions and pointers:
+Parameters are always passed by value in C. For example. in the below code, value of x is not modified using the function fun().
+
+#include <stdio.h> 
+void fun(int x) 
+{ 
+   x = 30; 
+} 
+  
+int main(void) 
+{ 
+    int x = 20; 
+    fun(x); 
+    printf("x = %d", x); 
+    return 0; 
+} 
+
+Output:
+x = 20
+However, in C, we can use pointers to get the effect of pass by reference. For example, consider the below program. The function fun() 
+expects a pointer ptr to an integer (or an address of an integer). It modifies the value at the address ptr. The dereference operator * is 
+used to access the value at an address. In the statement ‘*ptr = 30’, value at address ptr is changed to 30. The address operator & is used 
+to get the address of a variable of any data type. In the function call statement ‘fun(&x)’, the address of x is passed so that x can be 
+modified using its address.
+
+# include <stdio.h> 
+void fun(int *ptr) 
+{ 
+    *ptr = 30; 
+} 
+   
+int main() 
+{ 
+  int x = 20; 
+  fun(&x); 
+  printf("x = %d", x); 
+   
+  return 0; 
+} 
+
+Output:
+x = 30
+
+//function example:
+#include <stdio.h>
+
+/* function declaration */
+void print_big(int number);
+
+int main() {
+  int array[] = { 1, 11, 2, 22, 3, 33 };
+  int i;
+  for (i = 0; i < 6; i++) {
+    print_big(array[i]);
+  }
+  return 0;
+}
+
+/* write your function here */
+void print_big(int number){
+    if(number > 10){
+        printf("%d is big \n", number);
+        return;
+    }
+}
 
 
+/////STATIC/////
+static is a keyword in C. It is used with variables and functions.
 
+//static variables:
+Static variables have a property of preserving their value even after they are out of their scope. Hence, static variables preserve their 
+previous value in their previous scope and are not initialized again in the new scope.
+e.g.
+static data_type var_name = var_value; 
+OR
+static int example = 21;
+
+By default, variables are local to the scope in which they are defined. Variables can be declared as static to increase their scope up to 
+the file containing them. As a result, these variables can be accessed anywhere inside a file.
+
+A static int variable remains in memory while the program is running. A normal or auto variable (declared inside a block - ie local variables)
+is destroyed when a function call where the variable was declared is over.
+For example, we can use static int to count a number of times a function is called, but an auto variable can’t be used for this purpose.
+e.g.
+#include<stdio.h>
+int runner()
+{
+    //static ensures that the count updates
+    static int count = 0;
+    count++;
+    return count;
+}
+
+int main()
+{
+    printf("%d ", runner());
+    printf("%d ", runner());
+    return 0;
+}
+
+//static function:
+By default, functions are global in C. If we declare a function with static, the scope of that function is reduced to the file where it was
+declared. Therefore, when we want to restrict access to functions, we make them static. Another reason for making functions static can be 
+reuse of the same function name in other files.
+e.g.
+static void fun(void) {
+   printf("I am a static function.");
+}
+
+//static example:
+Below finds the sum of numbers, the static int total is preserved after each printf so that it prints 55, (+45) 100, (+50) 150.
+   #include <stdio.h>
+   int sum (int num) {
+       static int total = 0;
+       total += num;
+       return total;
+   }
+
+   int main() {
+       printf("%d ",sum(55));
+       printf("%d ",sum(45));
+       printf("%d ",sum(50));
+       return 0;
+   }
 
 
 
