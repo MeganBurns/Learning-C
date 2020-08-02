@@ -10,7 +10,8 @@ CONTENTS:
 7. For loops
 8. While loops
 9. Functions
-10. Static keyword
+10. 'Static' keyword
+11. Pointers
 
 
 /////GUIDE/////
@@ -734,6 +735,120 @@ Below finds the sum of numbers, the static int total is preserved after each pri
 
 
 
+/////POINTERS/////
+A pointer is essentially a simple integer variable which holds a memory address that points to a value, instead of holding the 
+actual value itself. 
+A computers memory is a sequential store of data, and a pointer points to a specific part of the memory. Our program can use pointers in such 
+a way that the pointers point to a large amount of memory - depending on how much we decide to read from that point on.
 
 
+//Strings as pointers:
+Strings in C are called C-Strings. This is to differentiate them from other Strings (for instance when a file is mixed with both C and C++).
+e.g.
+char * name = "John";
+1. Allocates a local (stack) variable called name, which is a pointer to a single character.
+2. Causes the string "John" to appear somewhere in the program memory (heap).
+3. Initializes the name argument to point to where the J character resides at (ie its address) (which is followed by the rest of the string in the memory).
+
+If we try to access the name variable as an array, it will work, and will return the ordinal value of the character J, since the name 
+variable actually points exactly to the beginning of the string.
+Since we know that the memory is sequential, we can assume that if we move ahead in the memory to the next character, we will receive the next 
+letter in the string, until we reach the end of the string, marked with a null terminator (the character with the ordinal value of 0, noted 
+as \0).
+
+
+//Dynamic Memory Allocation:
+https://www.youtube.com/watch?v=_8-ht2AKyH4
+
+
+APPLICATIONS MEMORY:
+|-------------------------|
+|                         | 
+|          HEAP           |     ----------> The heap stores dynamically allocated memory blocks. They have addresses. 
+|                         |
+|                         |
+|-------------------------|                         
+|                         |
+|                         |
+|         STACK           |     ----------> The stack stores all of the variables/methods in an application (like main(), and other local functions/variables). They are destroyed when their function finishes.   
+|                         |
+|                         |
+|-------------------------|
+|                         |
+|      STATIC/GLOBAL      |     ----------> All of the variables/methods etc. that have been declared globally (with a static keyword) are stored here. It exists throughout the entire life of the program. 
+|                         |
+|-------------------------|
+|                         |
+|        CODE (text)      |     ----------> All of the written code that makes up an application is stored here. 
+|                         |
+|-------------------------|                         
+
+
+
+In order for variables to be stored in the heap, you need the Malloc function. Using Malloc will return a pointer to the starting address of 
+the block of memory stored on the heap. The malloc function asks how much memory to allcoate on the heap in bytes.
+e.g. 
+int *p;
+p = (int*)malloc(sizeof(int));
+>This creates a block of memory in the heap of n bytes (an int is normally 4 bytes). So, P is now stored in the stack as a pointer to a block
+in the heap. For example, this memory address could be 200. So, P is stored in the stack and it points to memory location 200 in the heap. 
+But, we do not know what is in this memory block.
+To put something in the block:
+e.g.
+*p = 10;  
+Now, the memory block at address 200 stores the integer value 10. 
+If we want P to point to a different variable and therefore address, we just reassign it. Before reassigning it, call the 'free' keyword.
+e.g.
+free(p);
+p = (int*)malloc(sizeof(int));
+*p = 20;
+P now points to the address for example 400 and it points to the integer value of 20. Because we used the 'free' keyword, this means any memory
+that was allocated using malloc is now cleared. So we have more memory to use. 
+*Anything allocated on the heap is not automatically deallocated when the function is completed like it is in the stack. 
+
+To store an array:
+e.g. Storing an array of 20 integers:
+p = (int*)malloc(20*sizeof(int));
+
+If the program cannnot find any free memory in the heap, it will return null. 
+
+
+
+Malloc: Looks for some free space in the heap, reserves it, and gives you back a pointer to it. 
+Calloc:
+Realloc:
+Free: Any memory that was allocated using malloc is now cleared. 
+
+
+//Dereferencing:
+Dereferencing is the act of referring to where the pointer points, instead of the memory address. We are already using dereferencing in 
+arrays - but we just didnt know it yet. The brackets operator - [0] for example, accesses the first item of the array. And since arrays 
+are actually pointers, accessing the first item in the array is the same as dereferencing a pointer. Dereferencing a pointer is done using
+the asterisk operator *.
+
+If we want to create an array that will point to a different variable in our stack, we can write the following code:
+e.g.
+/* define a local variable a */
+int a = 1;
+
+/* define a pointer variable, and point it to a using the & operator */
+int * pointer_to_a = &a;
+
+printf("The value a is %d\n", a);
+printf("The value of a is also %d\n", *pointer_to_a);
+
+We can also change the contents of the dereferenced variable:
+e.g.
+
+int a = 1;
+int * pointer_to_a = &a;
+
+/* let's change the variable a */
+a += 1;
+
+/* we just changed the variable again! */
+*pointer_to_a += 1;
+
+/* will print out 3 */
+printf("The value of a is now %d\n", a);
 
