@@ -10,8 +10,9 @@ CONTENTS:
 7. For loops
 8. While loops
 9. Functions
-10. 'Static' keyword
+10. Static keyword
 11. Pointers
+12. Structures
 
 
 /////GUIDE/////
@@ -851,4 +852,75 @@ a += 1;
 
 /* will print out 3 */
 printf("The value of a is now %d\n", a);
+
+
+/////STRUCTURES/////
+Structures = Objects
+
+Structures are special, large variables which contain several named variables inside. Structures are the basic foundation for objects and 
+classes in C. 
+Structures are used for:
+*Serialization of data.
+*Passing multiple arguments in and out of functions through a single argument.
+*Data structures such as linked lists and binary trees. 
+
+//define a structure:
+e.g.
+struct address 
+{ 
+   char name[50]; 
+   char street[100]; 
+   char city[50]; 
+   char state[20]; 
+   int pin; 
+};
+
+The most basic example of structures are points, which are a single entity that contains two variables: x and y
+e.g.
+struct point {
+    int x;
+    int y;
+};
+Using structs, we can pass a point argument:
+e.g.
+/* draws a point on the screen at 10, 5 */
+struct point p;
+p.x = 10;
+p.y = 5;
+draw(p);
+note - To access the points variables, use the dot . operator.
+
+//typedef:
+The typedef keyword allows us to give a type a new name.
+e.g.
+ typedef unsigned char BYTE;
+ Now, the identifier BYTE can be used as an abbreviation for the type unsigned char
+ e.g.
+ BYTE  b1, b2; //aka unsigned char b1; unsigned char b2;
+
+ //to remove the struct keyword from each time we want to define a new point:
+ e.g.
+ typedef struct {
+    int x;
+    int y;
+} point;
+-This will allow us to define a new point like this:
+point p;
+
+//structures and pointers:
+Structures can also hold pointers - which allows them to hold strings, or pointers to other structures as well.
+e.g. define a vehicle structure:
+typedef struct {
+    char * brand;
+    int model;
+} vehicle;
+
+Since brand is a char pointer, the vehicle type can contain a string (which, in this case, indicates the brand of the vehicle).
+e.g.
+vehicle mycar;
+mycar.brand = "Ford";
+mycar.model = 2007;
+*remember - struct is like an object/class, so 'myCar' is like a vehicle object.
+
+
 
