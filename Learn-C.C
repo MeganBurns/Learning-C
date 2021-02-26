@@ -53,7 +53,7 @@ a percentage(%) symbol and follows a special character to identify the type of t
 
 /////HELLO WORLD/////
 #include <stdio.h>
-//the int keyword indicates that the function (main) will return an integer - if integer = 0, program was successful, any other number = fail
+//the int keyword indicates that the function (main) will return an integer. If integer = 0, program was successful, any other number = fail
 int main() {
     printf("Hello World!");
    return 0;
